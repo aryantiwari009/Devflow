@@ -7,7 +7,6 @@ const SignIn = () => {
   return (
     <AuthForm<{ email: string; password: string }>
       formType="SIGN_IN"
-      schema={SignInSchema as any}
       defaultValues={{ email: "", password: "" }}
       onSubmit={(data) => Promise.resolve({ success: true, data })}
     />

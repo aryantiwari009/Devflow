@@ -41,12 +41,11 @@ const RootLayout = async ({children}: {children: ReactNode}) => {
   return (
     <html
       lang="en"
-      className={cn("h-full", "font-sans", inter.variable)}
-      suppressHydrationWarning
-    >
+      className={cn("h-full", "font-sans", inter.variable)}>
       <SessionProvider session={session}>
       <body
         className={`${inter.className} ${spaceGrotesk.variable} h-full antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
