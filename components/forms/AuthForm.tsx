@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   DefaultValues,
@@ -96,9 +95,7 @@ const AuthForm = <T extends FieldValues>({
               ? "Signing In..."
               : "Signing Up..."
             : buttonText}
-        </Button>
-
-        {/* Link Logic... */}
+        </Button>       
       </form>
     </Form>
   );
