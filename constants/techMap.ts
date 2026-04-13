@@ -101,7 +101,7 @@ export const techMap: { [key: string]: string } = {
   mariadb: "devicon-mariadb-plain",
   elasticsearch: "devicon-elasticsearch-plain",
 
-  // --- DEVOPS & CLOUD ---
+  // --- DEVOPS & CLOUD ---11111111111111111111111111
   docker: "devicon-docker-plain",
   kubernetes: "devicon-kubernetes-plain",
   k8s: "devicon-kubernetes-plain",
