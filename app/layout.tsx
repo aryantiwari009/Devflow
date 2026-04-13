@@ -9,7 +9,6 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { ReactNode } from "react";
 
-
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const interLocal = localFont({
@@ -33,33 +32,36 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = async ({children}: {children: ReactNode}) => {
-  
-
-  const session = await auth()
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+  const session = await auth();
 
   return (
-    <html
-      lang="en"
-      className={cn("h-full", "font-sans", inter.variable)}>
+    <html lang="en" className={cn("h-full", "font-sans", inter.variable)}>
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+      </head>
       <SessionProvider session={session}>
-      <body
-        className={`${inter.className} ${spaceGrotesk.variable} h-full antialiased`}
-        suppressHydrationWarning
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <body
+          className={`${inter.className} ${spaceGrotesk.variable} h-full antialiased`}
+          suppressHydrationWarning
         >
-          {children}
-        </ThemeProvider>
-        <Toaster />
-      </body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster />
+        </body>
       </SessionProvider>
     </html>
   );
-}
+};
 
 export default RootLayout;
