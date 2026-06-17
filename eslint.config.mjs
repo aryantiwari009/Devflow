@@ -63,6 +63,7 @@ const config = [
 
     rules: {
       "no-undef": "off",
+      "@typescript-eslint/no-unused-vars": ["error"],
     },
   },
 ];
