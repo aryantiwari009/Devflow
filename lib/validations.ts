@@ -48,3 +48,20 @@ export const SignUpSchema = z.object({
     }),
 });
 
+export const AskQuestionSchema = z.object({
+  title: z
+    .string()
+    .min(10, { message: "Title must be at least 10 characters long." })
+    .max(150, { message: "Title cannot exceed 150 characters." }),
+  body: z
+    .string()
+    .min(20, { message: "Body must be at least 20 characters long." })
+    .max(5000, { message: "Body cannot exceed 5000 characters." }),
+  tags: z
+    .array(
+      z.object({
+        name: z.string().min(1, { message: "Tag name is required." }),
+      })
+    )
+    .max(5, { message: "You can add up to 5 tags." }),
+});

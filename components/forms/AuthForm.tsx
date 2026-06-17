@@ -9,8 +9,8 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+
 // 1. Import your schemas here so they stay on the client side
-import { SignInSchema, SignUpSchema } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import ROUTES from "@/constants/routes";
+import { SignInSchema, SignUpSchema } from "@/lib/validations";
 
 interface AuthFormProps<T extends FieldValues> {
   // 2. Remove 'schema' from this interface
@@ -41,7 +42,7 @@ const AuthForm = <T extends FieldValues>({
   const activeSchema = formType === "SIGN_IN" ? SignInSchema : SignUpSchema;
 
   const form = useForm<T>({
-    resolver: zodResolver(activeSchema) as any,
+    resolver: zodResolver(activeSchema) ,
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
@@ -57,13 +58,13 @@ const AuthForm = <T extends FieldValues>({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit as any)}
+        onSubmit={form.handleSubmit(handleSubmit )}
         className="mt-10 space-y-6"
       >
         {Object.keys(defaultValues).map((field) => (
           <FormField
             key={field}
-            control={form.control as any}
+            control={form.control }
             name={field as Path<T>}
             render={({ field: fieldProps }) => (
               <FormItem className="flex w-full flex-col gap-2.5">
