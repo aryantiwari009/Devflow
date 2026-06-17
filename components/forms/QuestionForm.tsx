@@ -1,8 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import { type MDXEditorMethods } from "@mdxeditor/editor";
+import dynamic from "next/dynamic";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { type z } from "zod";
 
 // Adding a blank line between import groups
 import { AskQuestionSchema } from "@/lib/validations";
@@ -20,12 +23,19 @@ import { Input } from "../ui/input";
 // eslint-disable-next-line import/order
 import { Button } from "../ui/button";
 
+const Editor = dynamic(() => import('../editor'), {
+  // Make sure we turn SSR off
+  ssr: false
+})
+
 const QuestionForm = () => {
-  const form = useForm({
+  const editorRef = useRef<MDXEditorMethods>(null);
+
+  const form = useForm<z.infer<typeof AskQuestionSchema>>({
     resolver: zodResolver(AskQuestionSchema),
     defaultValues: {
       title: "",
-      description: "",
+      body: "",
       tags: [],
     },
   });
@@ -63,16 +73,22 @@ const QuestionForm = () => {
           )}
         />
         <FormField
-          key="content"
+          key="body"
           control={form.control}
-          name="content"
+          name="body"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-2.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
                 Detailed Explanation of your question
                 <span className="text-primary-500">*</span>
               </FormLabel>
-              <FormControl>Editor</FormControl>
+              <FormControl>
+                <Editor
+                  editorRef={editorRef}
+                  value={field.value ?? ""}
+                  fieldChange={field.onChange}
+                />
+              </FormControl>
               <FormDescription className="body-regular text-light-500">
                 Include all the information someone would need to answer your
                 question.
@@ -111,7 +127,7 @@ const QuestionForm = () => {
           )}
         />
 
-        <div className="mt-16 flex justify-end">
+        <div className="mt-1 flex justify-end">
           <Button
             type="submit"
             className="primary-gradient w-fit text-light-900"
