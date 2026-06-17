@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Input } from "../ui/input";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
-import { useRouter, usePathname } from "next/navigation";
+
+import { Input } from "../ui/input";
 
 interface Props {
   route: string;
@@ -45,7 +45,7 @@ const LocalSearch = ({ route, imgSrc, placeholder, otherClasses }: Props) => {
     }, 500);
 
     return () => clearTimeout(debounceTimer);
-  }, [searchQuery, router, route, searchParam]);
+  }, [searchQuery, router, route, searchParam, pathname]);
 
   return (
     <div

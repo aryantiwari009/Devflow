@@ -1,9 +1,9 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import ROUTES from "@/constants/routes";
+
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
-import AuthForm from "@/components/forms/AuthForm";
+import { Button } from "@/components/ui/button";
+import ROUTES from "@/constants/routes";
 
 const questions = [
   {
@@ -63,7 +63,7 @@ const questions = [
 ];
 
 interface SearchParams {
-  searchParams: Promise<{ [key: string]: string}>;
+  searchParams: Promise<{ [key: string]: string }>;
 }
 
 const Home = async ({ searchParams }: SearchParams) => {
@@ -95,7 +95,7 @@ const Home = async ({ searchParams }: SearchParams) => {
           otherClasses="flex-1"
         />
       </section>
-      {/* Homefilter */}
+      <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
           <div
