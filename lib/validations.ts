@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const SignInSchema = z.object({
   email: z
-  .string()
+    .string()
     .email({ message: "Invalid email address" })
     .min(1, { message: "Email is required" }),
   password: z
@@ -28,7 +28,8 @@ export const SignUpSchema = z.object({
       message: "Name can only contain letters and spaces.",
     }),
 
-   email: z.string()
+  email: z
+    .string()
     .email({ message: "Invalid email address" })
     .min(1, { message: "Email is required" }),
 
@@ -53,6 +54,7 @@ export const AskQuestionSchema = z.object({
     .string()
     .min(10, { message: "Title must be at least 10 characters long." })
     .max(150, { message: "Title cannot exceed 150 characters." }),
+
   body: z
     .string()
     .min(20, { message: "Body must be at least 20 characters long." })
@@ -63,5 +65,6 @@ export const AskQuestionSchema = z.object({
         name: z.string().min(1, { message: "Tag name is required." }),
       })
     )
-    .max(5, { message: "You can add up to 5 tags." }),
+    .min(1, { message: "At least one tag is required." })
+    .max(3, { message: "You can add up to 3 tags." }),
 });

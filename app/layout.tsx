@@ -36,7 +36,11 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
   return (
-    <html lang="en" className={cn("h-full", "font-sans", inter.variable)}>
+    <html
+      lang="en"
+      className={cn("h-full", "font-sans", inter.variable)}
+      suppressHydrationWarning
+    >
       <head>
         <link
           rel="stylesheet"
@@ -44,11 +48,10 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
         />
       </head>
-      <SessionProvider session={session}>
-        <body
-          className={`${inter.className} ${spaceGrotesk.variable} h-full antialiased`}
-          suppressHydrationWarning
-        >
+      <body
+        className={`${inter.className} ${spaceGrotesk.variable} h-full antialiased`}
+      >
+        <SessionProvider session={session}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -58,8 +61,8 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
             {children}
           </ThemeProvider>
           <Toaster />
-        </body>
-      </SessionProvider>
+        </SessionProvider>
+      </body>
     </html>
   );
 };
