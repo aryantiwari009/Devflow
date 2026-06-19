@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { Toaster } from "sonner";
-import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
 import { ReactNode } from "react";
+import { Toaster } from "sonner";
+
+import { auth } from "@/auth";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -30,6 +31,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/site-logo.svg",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {

@@ -2,31 +2,36 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
+import NavLinks from "@/components/navigation/navbar/NavLinks";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ROUTES from "@/constants/routes";
-import NavLinks from "@/components/navigation/navbar/NavLinks";
 
 const MobileNavigation = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Image
-          src="/icons/hamburger.svg"
-          width={36}
-          height={36}
-          alt="Menu"
-          className="invert-colors sm:hidden cursor-pointer"
-        />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="sm:hidden"
+          aria-label="Open navigation menu"
+        >
+          <Image
+            src="/icons/hamburger.svg"
+            width={36}
+            height={36}
+            alt="Menu"
+            className="invert-colors"
+          />
+        </Button>
       </SheetTrigger>
       <SheetContent
         side="left"
@@ -47,11 +52,9 @@ const MobileNavigation = () => {
         </Link>
 
         <div className="no-scrollbar flex h-[calc(100vh-80px)] flex-col justify-between overflow-y-auto">
-          <SheetClose asChild>
-            <section className="flex h-full flex-col gap-6 pt-16 pb-7">
-              <NavLinks isMobileNav />
-            </section>
-          </SheetClose>
+          <section className="flex h-full flex-col gap-6 pt-16 pb-7">
+            <NavLinks isMobileNav />
+          </section>
 
           <div className="flex flex-col gap-3">
             <SheetClose asChild>

@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -26,14 +28,17 @@ const Metric = ({
   imgStyles,
   titleStyles,
 }: Props) => {
+  const [imageSource, setImageSource] = useState(imgUrl);
+
   const metricContent = (
     <>
       <Image
-        src={imgUrl}
+        src={imageSource}
         width={16}
         height={16}
         alt={alt}
         className={`rounded-full object-contain ${imgStyles}`}
+        onError={() => setImageSource("/images/default-logo.svg")}
       />
 
       <p className={`${textStyles} flex items-center gap-1`}>
