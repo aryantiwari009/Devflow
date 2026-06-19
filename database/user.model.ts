@@ -18,6 +18,8 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     bio: { type: String },
     image: { type: String, required: true },
+    location: { type: String },
+    portfolio: { type: String },
     reputation: { type: Number, default: 0 },
   },
   { timestamps: true }
