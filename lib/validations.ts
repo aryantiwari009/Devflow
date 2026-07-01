@@ -76,7 +76,11 @@ export const UserSchema = z.object({
     .min(3, { message: "Username must be at least 3 characters long." }),
   email: z.string().email({ message: "Please provide a valid email address." }),
   bio: z.string().optional(),
-  image: z.string().url({ message: "Please provide a valid URL." }).optional(),
+  image: z
+    .string()
+    .url({ message: "Please provide a valid URL." })
+    .optional()
+    .default("https://placehold.co/96x96/png"),
   location: z.string().optional(),
   portfolio: z
     .string()

@@ -1,4 +1,4 @@
-import { model, models , Schema } from "mongoose";
+import { model, models, Schema } from "mongoose";
 
 export interface IUser {
   name: string;
@@ -17,7 +17,7 @@ const UserSchema = new Schema(
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     bio: { type: String },
-    image: { type: String, required: true },
+    image: { type: String, default: "https://placehold.co/96x96/png" },
     location: { type: String },
     portfolio: { type: String },
     reputation: { type: Number, default: 0 },
@@ -25,6 +25,6 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-const User = models?.user || model<IUser>("User", UserSchema);
+const User = models?.User || model<IUser>("User", UserSchema);
 
 export default User;
