@@ -1,10 +1,12 @@
 import Link from "next/link";
 
+import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
-import QuestionCard from "@/components/cards/QuestionCard";
+import { api } from "@/lib/api";
+import handleError from "@/lib/handlers/error";
 
 const questions = [
   {
@@ -78,26 +80,42 @@ const questions = [
   },
 ];
 
+const test = async () => {
+  try {
+    return await api.users.getAll();
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
 }
 
 const Home = async ({ searchParams }: SearchParams) => {
-  const { query = "" } = await searchParams;
+  const users = await test();
 
-  const filteredQuestions = questions.filter((q) =>
-    q.title.toLowerCase().includes(query?.toLowerCase())
-  );
+  console.log(users);
+
+  const { query = "", filter = "" } = await searchParams;
+
+  const filteredQuestions = questions.filter((question) => {
+    const matchesQuery = question.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const matchesFilter = filter
+      ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
+      : true;
+    return matchesQuery && matchesFilter;
+  });
 
   return (
     <>
       <section className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="text-2xl font-bold text-dark100_light900">
-          All Questions
-        </h1>
+        <h1 className="h1-bold text-dark100_light900">All Questions</h1>
 
         <Button
-          className="primary-gradient min-h-11.5 px-4 py-3 text-light-900"
+          className="primary-gradient min-h-46px px-4 py-3 text-light-900"
           asChild
         >
           <Link href={ROUTES.ASK_QUESTION}>Ask a Question</Link>
